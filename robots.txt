@@ -1,4 +1,2 @@
 User-agent: *
 Disallow: /confirm/
-Disallow: /confirmed/
-Disallow: /signup-test/
