@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security audit tip sheet | Real App Club</title>
+<meta name="description" content="How to run the Ship Kit security audit in Claude Code and Cursor, what Critical means, and what it looks for.">
+
+<meta property="og:title" content="Security audit tip sheet | Real App Club">
+<meta property="og:description" content="How to run the Ship Kit security audit in Claude Code and Cursor, what Critical means, and what it looks for.">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="icon" type="image/svg+xml" href="../assets/img/rac-mark.svg">
+<link rel="preload" href="../assets/fonts/SpaceGrotesk-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/SourceSans3-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../index.html"><img src="../assets/img/rac-mark-on-dark.svg" alt="" width="32" height="32"><span>Real App Club</span></a>
+    <nav aria-label="Main"><a href="../checklist/">Launch checklist</a><a href="../setup-guide/">Setup guide</a><a href="../security-audit/" aria-current="page">Security audit</a></nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+
+<section class="hero">
+  <p class="eyebrow">The Ship Kit v1.0.13</p>
+  <h1>Security audit tip sheet</h1>
+  <p class="lede">The security audit looks for ship-blocking problems a non-developer can understand and fix. Run it first, fix Critical items first, then move on.</p>
+  <p class="note">This kit is a checklist and audit aid. It is not a security guarantee, penetration test, or legal advice. You are responsible for your app, your keys, and your launch.</p>
+</section>
+<section class="card">
+  <h2>How to run it</h2>
+  <p>Install the kit first with the <a href="../setup-guide/">setup guide</a>, then restart your tool.</p>
+  <h3>Claude Code</h3>
+  <p>In chat, say: <code>Use the security-audit agent on this project</code></p>
+  <p>Or type: <code>/security-audit</code></p>
+  <h3>Cursor</h3>
+  <p>In Agent chat, ask: <code>Run a security audit using the Ship Kit security rule</code> or <code>@ship-kit-security</code></p>
+  <p class="small">Claude Code: supported, but not yet tested live on Claude Code. The Cursor version has been tested live. If something behaves differently in Claude Code, tell us and we will fix it.</p>
+</section>
+<section class="card">
+  <h2>What "Critical" means</h2>
+  <p>Critical means do not launch until it is fixed. Someone could read other people's data, get paid access for free, or change what they pay. Fix every Critical item first, then High, then the rest.</p>
+  <p>Some things are always Critical, for example:</p>
+  <ul>
+    <li>A Supabase table in the public schema that holds user data and has RLS (row level security) off.</li>
+    <li>A policy that lets anyone read rows that belong to one user, like private messages or contact details.</li>
+    <li>A server that charges from a price, amount, currency, quantity total, or Price ID sent by the browser.</li>
+    <li>A column a user can change on their own row that gives admin or paid access, like <code>role</code>, <code>plan</code> or <code>is_pro</code>.</li>
+  </ul>
+</section>
+<section class="card">
+  <h2>What it looks for</h2>
+  <ul>
+    <li><strong>Secrets and keys:</strong> Stripe secret keys, Supabase service role keys and other tokens in your code or in a committed <code>.env</code> file.</li>
+    <li><strong>Auth:</strong> pages and API routes that should check who is logged in but do not.</li>
+    <li><strong>Ownership:</strong> routes that take a user or record id without checking it belongs to the person asking.</li>
+    <li><strong>Supabase RLS:</strong> tables with RLS off, and policies that let anyone read or write.</li>
+    <li><strong>Stripe:</strong> webhook handlers that skip the signature check (<code>constructEvent</code>), secret keys in client code, and prices taken from the browser.</li>
+    <li><strong>Injection, headers and cookies:</strong> raw SQL built from user input, session cookies without secure settings, and open CORS.</li>
+  </ul>
+</section>
+<section class="card">
+  <h2>What you get back</h2>
+  <p>A short report: a summary (ready to ship or not), then Critical, High, and Medium or Low findings with plain fix steps, what looked fine, and the limits of the check. It reads your files first and asks before risky edits. It shows only the first 4 characters of any secret it finds.</p>
+  <p>It cannot check what only runs live, like your Stripe dashboard or your production database with real users. Check those yourself with the <a href="../checklist/">launch checklist</a>.</p>
+</section>
+<section class="card">
+  <h2>After the audit</h2>
+  <ol class="steps">
+    <li>Fix Critical items, then run the audit again.</li>
+    <li>Walk the <a href="../checklist/">launch checklist</a>.</li>
+    <li>Run <code>/pre-launch</code> (Claude Code) or <code>@ship-kit-prelaunch</code> (Cursor).</li>
+  </ol>
+  <p>Stuck on a finding? Ask in <a href="https://whop.com/real-app-club/real-app-club-membership">Club chat</a>.</p>
+</section>
+
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <p><a href="https://whop.com/real-app-club/the-ship-kit">The Ship Kit</a> · <a href="https://github.com/realappclub/ship-kit-lite">Ship Kit Lite on GitHub (free)</a> · <a href="https://whop.com/real-app-club/real-app-club-membership">Real App Club</a></p>
+    <p>Seller: Fernando Castro Arana, Mexico · <a href="https://assets-2-prod.whop.com/public/uploads/2026-11-11/090185b5-5195-4f09-8964-5652a6592ff8/application.pdf">Terms (PDF)</a> · <a href="https://assets-2-prod.whop.com/public/uploads/2026-11-11/b011879f-f31b-44ed-9e79-2a5c28bf23da/application.pdf">Privacy (PDF)</a></p>
+    <p>Real App Club. AI-assisted brand team. Plain words.</p>
+    <p class="small">This kit is a checklist and audit aid. It is not a security guarantee, penetration test, or legal advice. You are responsible for your app, your keys, and your launch.</p>
+  </div>
+</footer>
+</body>
+</html>

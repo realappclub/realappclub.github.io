@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Launch checklist (free PDF) | Real App Club</title>
+<meta name="description" content="A free launch checklist for vibe-coded apps: secrets, auth, Supabase, Stripe, app quality, go live. Read it online or download the PDF.">
+
+<meta property="og:title" content="Launch checklist (free PDF) | Real App Club">
+<meta property="og:description" content="A free launch checklist for vibe-coded apps: secrets, auth, Supabase, Stripe, app quality, go live. Read it online or download the PDF.">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="icon" type="image/svg+xml" href="../assets/img/rac-mark.svg">
+<link rel="preload" href="../assets/fonts/SpaceGrotesk-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/SourceSans3-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../index.html"><img src="../assets/img/rac-mark-on-dark.svg" alt="" width="32" height="32"><span>Real App Club</span></a>
+    <nav aria-label="Main"><a href="../checklist/" aria-current="page">Launch checklist</a><a href="../setup-guide/">Setup guide</a><a href="../security-audit/">Security audit</a></nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+
+<section class="hero">
+  <p class="eyebrow">Free · No sign-up needed to read</p>
+  <h1>Launch checklist</h1>
+  <p class="lede">Secrets, auth, Supabase, Stripe, app quality, then go live. A plain checklist for Next.js or Vite apps with Supabase and Stripe. Read it here, tick the boxes, or print the PDF.</p>
+  <p class="cta-row"><a class="btn" href="launch-checklist.pdf" download>Download the PDF</a> <a class="btn ghost" href="launch-checklist.md" download>Markdown copy</a></p>
+</section>
+<article class="doc checklist">
+<p><strong>Real App Club · The Ship Kit v1.0.13</strong><br>
+Print this page or use the PDF. Check boxes only when true for your app.</p>
+<p>This kit is a checklist and audit aid. It is not a security guarantee, penetration test, or legal advice. You are responsible for your app, your keys, and your launch.</p>
+<p class="small">Ticks on this page are not saved. Use the PDF if you want a copy to keep.</p>
+<section class="ck"><h2>1. Secrets</h2>
+<ul>
+<li class="check"><input type="checkbox" aria-label="Done"><span>No <code>.env</code> committed to git</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span><code>.env.example</code> lists keys with fake or empty values only</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>No <code>sk_live</code> / <code>sk_test</code> / <code>service_role</code> keys in client code</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Production secrets live in the host env (Vercel, Netlify, etc.)</span></li>
+</ul></section>
+<section class="ck"><h2>2. Auth</h2>
+<ul>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Private pages check the session on the server (not only in React state)</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Sign-out clears the session</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Auth redirect URLs include your production domain</span></li>
+</ul></section>
+<section class="ck"><h2>3. Supabase</h2>
+<ul>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Every public-schema user-data table has RLS enabled (always a Critical gap if missing; treat as Data API exposed unless proven otherwise; empty or missing GRANT rows in SQL are not proof it is private; proof means non-exposed schema or user-confirmed dashboard API settings only)</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Policies use <code>auth.uid()</code> (or equal) for ownership</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>No user-writable entitlement columns on own row (role, plan, tier, credits, balance, is_admin, is_pro) without server-side lock-down (Critical if they grant admin/paid access)</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>No SELECT USING (true) (or equivalent) on per-user private tables (tables where each row belongs to one user: personal entries, private messages, health, location or billing records, contact details) (Critical)</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Service role key used only on a trusted server</span></li>
+</ul></section>
+<section class="ck"><h2>4. Stripe (skip if you have no payments)</h2>
+<ul>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Webhook uses <code>constructEvent</code> with the raw body and signing secret</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Charge amount comes from server-side prices or Stripe Price IDs you control (never trust a client-sent price, amount, currency, quantity-based total, or Price ID choice) (Critical)</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Access is granted from verified webhook or server-side session retrieve</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Test mode purchase + webhook delivery succeeded once</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Live mode webhook endpoint added before real charges</span></li>
+</ul></section>
+<section class="ck"><h2>5. App quality</h2>
+<ul>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Error page does not show stack traces to users</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Basic logging or error tracker is on in production</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Title and meta description set</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Privacy policy and terms linked from the site</span></li>
+</ul></section>
+<section class="ck"><h2>6. Go live</h2>
+<ul>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Production build succeeds locally or on CI</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Custom domain HTTPS works</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Ran Ship Kit <code>security-audit</code> and fixed Critical items</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Ran Ship Kit <code>pre-launch</code> and got GO (or accepted listed risks in writing)</span></li>
+</ul></section>
+<section class="ck"><h2>After launch (first 24 hours)</h2>
+<ul>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Watch Stripe dashboard for failed webhooks</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Watch Supabase auth and API logs</span></li>
+<li class="check"><input type="checkbox" aria-label="Done"><span>Click sign-up, sign-in, pay (if any), and a private page yourself</span></li>
+</ul></section>
+
+</article>
+<section class="card">
+  <h2>Want help finding these issues?</h2>
+  <p>The Ship Kit (v1.0.13) adds Claude Code agents and skills and Cursor rules that check your project against this list: security audit, Supabase RLS, Stripe, auth, pre-launch, performance and SEO, and error logging. Sales open the week of 23 Nov 2026.</p>
+  <p class="cta-row"><a class="btn" href="https://whop.com/real-app-club/the-ship-kit">See The Ship Kit</a> <a class="btn ghost" href="https://github.com/realappclub/ship-kit-lite">Try Ship Kit Lite (free, GitHub)</a></p>
+  <p class="small">New to the kit? Read the <a href="../setup-guide/">10-minute setup guide</a> and the <a href="../security-audit/">security audit tip sheet</a>.</p>
+</section>
+
+<section class="card signup" id="get-it">
+  <h2>Email me the Launch Checklist</h2>
+  <p>Get the PDF by email, plus about one useful note a week and the Ship Kit offer when sales are open.</p>
+  <form data-nitro-form data-list-id="13295" data-source="launch-checklist-landing" data-thanks-url="../confirm/" class="form" novalidate>
+    <div class="field">
+      <label for="f-email">Email</label>
+      <input id="f-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+    </div>
+    <div class="field">
+      <label for="f-name">First name (optional)</label>
+      <input id="f-name" type="text" name="first_name" autocomplete="given-name">
+    </div>
+    <!-- Honeypot: leave hidden, do not remove -->
+    <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <button type="submit" class="btn">Send the checklist</button>
+    <p data-nitro-message class="form-msg" role="status" aria-live="polite" hidden></p>
+  </form>
+  <p class="small">You'll get the checklist and occasional updates. Unsubscribe anytime.</p>
+  <p class="small">We store your email to send the Launch Checklist and related Real App Club updates. Every email has an unsubscribe link. We do not sell your address. <a href="https://assets-2-prod.whop.com/public/uploads/2026-11-11/b011879f-f31b-44ed-9e79-2a5c28bf23da/application.pdf">Privacy policy (PDF)</a>.</p>
+</section>
+<script src="../assets/signup.js" defer></script>
+
+
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <p><a href="https://whop.com/real-app-club/the-ship-kit">The Ship Kit</a> · <a href="https://github.com/realappclub/ship-kit-lite">Ship Kit Lite on GitHub (free)</a> · <a href="https://whop.com/real-app-club/real-app-club-membership">Real App Club</a></p>
+    <p>Seller: Fernando Castro Arana, Mexico · <a href="https://assets-2-prod.whop.com/public/uploads/2026-11-11/090185b5-5195-4f09-8964-5652a6592ff8/application.pdf">Terms (PDF)</a> · <a href="https://assets-2-prod.whop.com/public/uploads/2026-11-11/b011879f-f31b-44ed-9e79-2a5c28bf23da/application.pdf">Privacy (PDF)</a></p>
+    <p>Real App Club. AI-assisted brand team. Plain words.</p>
+    <p class="small">This kit is a checklist and audit aid. It is not a security guarantee, penetration test, or legal advice. You are responsible for your app, your keys, and your launch.</p>
+  </div>
+</footer>
+</body>
+</html>

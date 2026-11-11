@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ship Kit setup guide | Real App Club</title>
+<meta name="description" content="Set up The Ship Kit in about 10 minutes for Claude Code or Cursor: copy the files, restart, run the security audit.">
+
+<meta property="og:title" content="Ship Kit setup guide | Real App Club">
+<meta property="og:description" content="Set up The Ship Kit in about 10 minutes for Claude Code or Cursor: copy the files, restart, run the security audit.">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="icon" type="image/svg+xml" href="../assets/img/rac-mark.svg">
+<link rel="preload" href="../assets/fonts/SpaceGrotesk-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/SourceSans3-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../index.html"><img src="../assets/img/rac-mark-on-dark.svg" alt="" width="32" height="32"><span>Real App Club</span></a>
+    <nav aria-label="Main"><a href="../checklist/">Launch checklist</a><a href="../setup-guide/" aria-current="page">Setup guide</a><a href="../security-audit/">Security audit</a></nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+
+<section class="hero">
+  <p class="eyebrow">The Ship Kit v1.0.13</p>
+  <h1>Ship Kit setup guide (about 10 minutes)</h1>
+  <p class="lede">Copy the <code>claude/</code> or <code>cursor/</code> files (or both) into your app, restart your tool, then run the security audit. Then work the launch checklist and run the pre-launch job.</p>
+  <p class="note">Claude Code: supported, but not yet tested live on Claude Code. The Cursor version has been tested live. If something behaves differently in Claude Code, tell us and we will fix it.</p>
+  <p class="small">Do not have the kit yet? <a href="https://whop.com/real-app-club/the-ship-kit">The Ship Kit</a> is on Whop. The <a href="../checklist/">launch checklist</a> is free.</p>
+</section>
+<section class="card">
+  <h2>What each file is for</h2>
+  <dl class="defs">
+    <dt><code>CLAUDE.md</code> (Claude Code)</dt>
+    <dd>Project memory at your app's top folder. Claude Code reads it in every chat. The Ship Kit block holds the safety and voice rules, between the lines <code>&lt;!-- Ship Kit start --&gt;</code> and <code>&lt;!-- Ship Kit end --&gt;</code>.</dd>
+    <dt><code>.claude/agents/</code> and <code>.claude/skills/</code> (Claude Code)</dt>
+    <dd>The seven jobs: <code>security-audit</code>, <code>supabase-rls</code>, <code>stripe-payments</code>, <code>auth-review</code>, <code>pre-launch</code>, <code>performance-seo</code>, <code>error-logging</code>. Agents run when you ask for them by name. Skills give you the slash commands, like <code>/security-audit</code>.</dd>
+    <dt><code>.cursor/rules/*.mdc</code> (Cursor)</dt>
+    <dd>Eight rule files. <code>ship-kit-core.mdc</code> is always on and holds the safety and voice rules. The other seven are the jobs, loaded when you @-mention them, like <code>@ship-kit-security</code>.</dd>
+    <dt><code>AGENTS.md</code> (Cursor)</dt>
+    <dd>Plain markdown instructions at your app's top folder. Same idea as <code>CLAUDE.md</code>, with the same marked Ship Kit block.</dd>
+  </dl>
+</section>
+<section class="card">
+  <h2>Where the pre-launch job fits</h2>
+  <p>Order: install, run the security audit, fix Critical items, walk the launch checklist, then run <code>/pre-launch</code> (Claude Code) or <code>@ship-kit-prelaunch</code> (Cursor). Ship only when blockers are gone.</p>
+</section>
+<article class="doc">
+<h2 class="doc-title">The full guide</h2>
+<p>You do not need to be a developer. Follow the path that matches your tool.</p>
+<p>This kit is a checklist and audit aid. It is not a security guarantee, penetration test, or legal advice. You are responsible for your app, your keys, and your launch.</p>
+<h2>Before you start</h2>
+<ul>
+<li>Your app folder is open on your computer.</li>
+<li>You can copy and paste files (Finder, Explorer, or your editor).</li>
+<li>Optional: git commit your current work so you can undo.</li>
+</ul>
+<h2>Path A: Claude Code</h2>
+<ol>
+<li>Unzip The Ship Kit. It unpacks into a <code>ship-kit/</code> folder.</li>
+<li>Open the <code>claude/</code> folder inside the kit.</li>
+<li>Copy <code>CLAUDE.md</code> into your app's top folder. If you already have <code>CLAUDE.md</code>, open both and keep your notes, then paste in the whole Ship Kit block: everything from the line <code>&lt;!-- Ship Kit start --&gt;</code> to the line <code>&lt;!-- Ship Kit end --&gt;</code>, both of those lines included. Paste it as one piece, outside your own notes.
+   If your file has the marker lines, first delete the old marked block (from <code>&lt;!-- Ship Kit start --&gt;</code> to <code>&lt;!-- Ship Kit end --&gt;</code>), then paste the new one. If it has no marker lines (v1.0.7 or older), first delete the old text from the heading <code># Project instructions (Real App Club Ship Kit)</code> down to and including the line "This kit is a checklist and audit aid. It is not a security guarantee, penetration test, or legal advice. You are responsible for your app, your keys, and your launch." (the same steps as README, How to roll back, step 3), then paste the new block. If you cannot find the heading or that last line (for example because you pasted only part of the text), open the kit's own file and remove the matching lines by comparing, or restore the file from your git history.</li>
+<li>Copy the whole <code>.claude</code> folder into your app's top folder (so you get <code>.claude/agents</code> and <code>.claude/skills</code>).</li>
+<li>Quit Claude Code fully, then open your app again with Claude Code.</li>
+<li>In chat, say: <code>Use the security-audit agent on this project</code><br>
+   Or type: <code>/security-audit</code></li>
+<li>Read the report. Fix Critical items before you launch.</li>
+</ol>
+<p>Other jobs: <code>/supabase-rls</code>, <code>/stripe-payments</code>, <code>/auth-review</code>, <code>/pre-launch</code>, <code>/performance-seo</code>, <code>/error-logging</code>.</p>
+<h2>Path B: Cursor</h2>
+<ol>
+<li>Unzip The Ship Kit.</li>
+<li>Open the <code>cursor/</code> folder inside the kit.</li>
+<li>Copy <code>AGENTS.md</code> into your app's top folder. If you already have <code>AGENTS.md</code>, keep your notes and paste in the whole Ship Kit block: everything from the line <code>&lt;!-- Ship Kit start --&gt;</code> to the line <code>&lt;!-- Ship Kit end --&gt;</code>, both of those lines included.
+   If your file has the marker lines, first delete the old marked block (from <code>&lt;!-- Ship Kit start --&gt;</code> to <code>&lt;!-- Ship Kit end --&gt;</code>), then paste the new one. If it has no marker lines (v1.0.7 or older), first delete the old text from the heading <code># Agent instructions (Real App Club Ship Kit)</code> down to and including the line "This kit is a checklist and audit aid. It is not a security guarantee, penetration test, or legal advice. You are responsible for your app, your keys, and your launch." (the same steps as README, How to roll back, step 3), then paste the new block. If you cannot find the heading or that last line (for example because you pasted only part of the text), open the kit's own file and remove the matching lines by comparing, or restore the file from your git history.</li>
+<li>Copy <code>.cursor/rules</code> into your app so the <code>.mdc</code> files live at <code>.cursor/rules/</code>. That is 8 files: <code>ship-kit-core.mdc</code> (always on) plus 7 job rules.</li>
+<li>In Cursor, open <strong>Customize → Rules</strong> and confirm the Ship Kit rules appear.</li>
+<li>In Agent chat, run one job at a time. Ask in a sentence, and @-mention the rule so it loads even if Cursor does not pick it from the description:
+   - Security: <code>Run a security audit using the Ship Kit security rule</code> or <code>@ship-kit-security</code>
+   - Supabase RLS: <code>@ship-kit-supabase-rls</code>
+   - Stripe: <code>@ship-kit-stripe</code>
+   - Auth: <code>@ship-kit-auth</code>
+   - Pre-launch: <code>@ship-kit-prelaunch</code>
+   - Performance and SEO: <code>@ship-kit-performance-seo</code>
+   - Errors and logging: <code>@ship-kit-error-logging</code></li>
+<li>In Customize, then Rules, <code>ship-kit-core</code> shows as Always: it holds the safety and voice rules and loads in every chat. The other seven rules (the @ names above) should show Apply Intelligently. They have a description and no file globs. Do not add globs. A glob would hide the rule until a matching file is open, and the auth, SEO, and error rules are most useful when those files are missing.</li>
+<li>Fix Critical items before you launch.</li>
+</ol>
+<h2>Path C: Lovable or Bolt</h2>
+<p>You cannot install Claude subagents there. Use the prompt pack instead:</p>
+<ol>
+<li>Open <code>prompts/hardening-lovable-bolt.md</code>.</li>
+<li>Copy the <strong>Security audit</strong> prompt into Lovable/Bolt chat.</li>
+<li>Paste follow-ups for RLS, Stripe, and auth as needed.</li>
+<li>Still walk the launch checklist by hand.</li>
+</ol>
+<h2>After the audit</h2>
+<ol>
+<li>Open <code>checklists/launch-checklist.md</code> (or the PDF).</li>
+<li>Check every box you can.</li>
+<li>Run <code>/pre-launch</code> (Claude) or @-mention <code>@ship-kit-prelaunch</code> (Cursor). The other Cursor jobs use the same @ names as in Path B.</li>
+<li>Ship only when blockers are gone.</li>
+</ol>
+<h2>If something does not load</h2>
+<ul>
+<li>Claude: new <code>.claude/agents</code> folder often needs a full restart.</li>
+<li>Cursor: rule files must end in <code>.mdc</code> (not <code>.md</code>).</li>
+<li>You merged wrong: compare with the kit's clean copy.</li>
+</ul>
+<h2>What this kit does not do</h2>
+<ul>
+<li>It does not log into your Stripe or Supabase dashboard for you.</li>
+<li>It does not replace a professional pentest for high-risk apps (health, finance at scale).</li>
+<li>It does not publish your app.</li>
+</ul>
+<p>Pinned reference versions: see <code>VERSIONS.md</code> (Claude Code 2.1.318, docs dated 5 Nov 2026).</p>
+</article>
+<section class="card">
+  <p>Next: the <a href="../security-audit/">security audit tip sheet</a> and the <a href="../checklist/">launch checklist</a>. Stuck? Ask in <a href="https://whop.com/real-app-club/real-app-club-membership">Club chat</a>.</p>
+</section>
+
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <p><a href="https://whop.com/real-app-club/the-ship-kit">The Ship Kit</a> · <a href="https://github.com/realappclub/ship-kit-lite">Ship Kit Lite on GitHub (free)</a> · <a href="https://whop.com/real-app-club/real-app-club-membership">Real App Club</a></p>
+    <p>Seller: Fernando Castro Arana, Mexico · <a href="https://assets-2-prod.whop.com/public/uploads/2026-11-11/090185b5-5195-4f09-8964-5652a6592ff8/application.pdf">Terms (PDF)</a> · <a href="https://assets-2-prod.whop.com/public/uploads/2026-11-11/b011879f-f31b-44ed-9e79-2a5c28bf23da/application.pdf">Privacy (PDF)</a></p>
+    <p>Real App Club. AI-assisted brand team. Plain words.</p>
+    <p class="small">This kit is a checklist and audit aid. It is not a security guarantee, penetration test, or legal advice. You are responsible for your app, your keys, and your launch.</p>
+  </div>
+</footer>
+</body>
+</html>
