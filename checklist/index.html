@@ -26,6 +26,12 @@
   </div>
 </header>
 <main id="main" class="wrap">
+<style>#link-expired{display:none}#link-expired:target{display:block}</style>
+<section class="card" id="link-expired" role="status">
+  <h2>This link has expired</h2>
+  <p>Confirm links work for 7 days and only once, and a newer link replaces an older one. Sign up again below and we will send you a fresh link.</p>
+  <p class="cta-row"><a class="btn" href="#get-it">Sign up again</a></p>
+</section>
 
 <section class="hero">
   <p class="eyebrow">Free · No sign-up needed to read</p>
@@ -34,7 +40,7 @@
   <p class="cta-row"><a class="btn" href="launch-checklist.pdf" download>Download the PDF</a> <a class="btn ghost" href="launch-checklist.md" download>Markdown copy</a></p>
 </section>
 <article class="doc checklist">
-<p><strong>Real App Club · The Ship Kit v1.0.13</strong><br>
+<p><strong>Real App Club · The Ship Kit v1.0.16</strong><br>
 Print this page or use the PDF. Check boxes only when true for your app.</p>
 <p>This kit is a checklist and audit aid. It is not a security guarantee, penetration test, or legal advice. You are responsible for your app, your keys, and your launch.</p>
 <p class="small">Ticks on this page are not saved. Use the PDF if you want a copy to keep.</p>
@@ -91,18 +97,18 @@ Print this page or use the PDF. Check boxes only when true for your app.</p>
 </article>
 <section class="card">
   <h2>Want help finding these issues?</h2>
-  <p>The Ship Kit (v1.0.13) adds Claude Code agents and skills and Cursor rules that check your project against this list: security audit, Supabase RLS, Stripe, auth, pre-launch, performance and SEO, and error logging. Sales open the week of 23 Nov 2026.</p>
+  <p>The Ship Kit (v1.0.16) adds Claude Code agents and skills and Cursor rules that check your project against this list: security audit, Supabase RLS, Stripe, auth, pre-launch, performance and SEO, and error logging. It is on sale now on Whop, as a one-time purchase.</p>
   <p class="cta-row"><a class="btn" href="https://whop.com/real-app-club/the-ship-kit">See The Ship Kit</a> <a class="btn ghost" href="https://github.com/realappclub/ship-kit-lite">Try Ship Kit Lite (free, GitHub)</a></p>
   <p class="small">New to the kit? Read the <a href="../setup-guide/">10-minute setup guide</a> and the <a href="../security-audit/">security audit tip sheet</a>.</p>
 </section>
 
 <section class="card signup" id="get-it">
   <h2>Email me the Launch Checklist</h2>
-  <p>Get the PDF by email, plus about one useful note a week and the Ship Kit offer when sales are open.</p>
-  <form data-nitro-form data-list-id="13295" data-source="launch-checklist-landing" data-thanks-url="../confirm/" class="form" novalidate>
+  <p>Get the PDF by email, plus a few short emails over about 10 days, then occasional updates, and the Ship Kit offer.</p>
+  <form data-nitro-form data-list-id="13295" data-source="launch-checklist-landing" data-thanks-url="../confirm/" class="form" method="post" action="#" novalidate>
     <div class="field">
       <label for="f-email">Email</label>
-      <input id="f-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+      <input id="f-email" type="email" inputmode="email" name="email" placeholder="you@example.com" autocomplete="email" required>
     </div>
     <div class="field">
       <label for="f-name">First name (optional)</label>
@@ -111,10 +117,11 @@ Print this page or use the PDF. Check boxes only when true for your app.</p>
     <!-- Honeypot: leave hidden, do not remove -->
     <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <button type="submit" class="btn">Send the checklist</button>
+    <noscript><p class="small">This form needs JavaScript. You can still use the checklist on this page, or email fercastroar@mail.grokbot.com for the PDF.</p></noscript>
     <p data-nitro-message class="form-msg" role="status" aria-live="polite" hidden></p>
   </form>
-  <p class="small">You'll get the checklist and occasional updates. Unsubscribe anytime.</p>
-  <p class="small">We store your email to send the Launch Checklist and related Real App Club updates. Every email has an unsubscribe link. We do not sell your address. <a href="https://assets-2-prod.whop.com/public/uploads/2026-11-11/7f55afbc-043c-41c4-b665-45819e600848/application.pdf">Privacy policy (PDF)</a>.</p>
+  <p class="small">We'll email you a link to confirm. After you confirm, you'll get the checklist, then a few short emails over about 10 days with tips and the Ship Kit offer, and occasional updates after that. Unsubscribe anytime.</p>
+  <p class="small">We store your email to send the Launch Checklist and related Real App Club updates. Every email has an unsubscribe link. We do not sell your address. <a href="https://realappclub.github.io/legal/privacy-policy.pdf">Privacy policy (PDF)</a>.</p>
 </section>
 <script src="../assets/signup.js" defer></script>
 
@@ -123,7 +130,7 @@ Print this page or use the PDF. Check boxes only when true for your app.</p>
 <footer class="foot">
   <div class="wrap">
     <p><a href="https://whop.com/real-app-club/the-ship-kit">The Ship Kit</a> · <a href="https://github.com/realappclub/ship-kit-lite">Ship Kit Lite on GitHub (free)</a> · <a href="https://whop.com/real-app-club/real-app-club-membership">Real App Club</a></p>
-    <p>Seller: Fernando Castro Arana, Mexico · <a href="https://assets-2-prod.whop.com/public/uploads/2026-11-11/090185b5-5195-4f09-8964-5652a6592ff8/application.pdf">Terms (PDF)</a> · <a href="https://assets-2-prod.whop.com/public/uploads/2026-11-11/7f55afbc-043c-41c4-b665-45819e600848/application.pdf">Privacy (PDF)</a></p>
+    <p>Seller: Fernando Castro Arana, Mexico · <a href="https://realappclub.github.io/legal/terms-of-service.pdf">Terms (PDF)</a> · <a href="https://realappclub.github.io/legal/privacy-policy.pdf">Privacy (PDF)</a></p>
     <p>Real App Club. AI-assisted brand team. Plain words.</p>
     <p class="small">This kit is a checklist and audit aid. It is not a security guarantee, penetration test, or legal advice. You are responsible for your app, your keys, and your launch.</p>
   </div>

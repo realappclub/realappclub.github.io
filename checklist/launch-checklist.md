@@ -1,6 +1,6 @@
 # Launch checklist
 
-**Real App Club · The Ship Kit v1.0.13**  
+**Real App Club · The Ship Kit v1.0.16**  
 Print this page or use the PDF. Check boxes only when true for your app.
 
 This kit is a checklist and audit aid. It is not a security guarantee, penetration test, or legal advice. You are responsible for your app, your keys, and your launch.
